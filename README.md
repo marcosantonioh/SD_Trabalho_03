@@ -60,7 +60,7 @@ Rodar cliente:
 
 ### Interface do Cliente
 
-![Cliente](screenshots/Captura de tela de 2026-04-02 21-43-44.png)
+![Cliente](screenshots/image1.png)
 
 O cliente envia temperaturas simuladas ao servidor que classifica como:
 
@@ -71,11 +71,11 @@ O cliente envia temperaturas simuladas ao servidor que classifica como:
 
 ### Dashboard do Sistema
 
-![Dashboard](screenshots/Captura de tela de 2026-04-02 21-43-58.png)
+![Dashboard](screenshots/image2.png)
 
 
 Os dados são armazenados no banco SQLite.
 
 ### Banco de Dados SQLite
 
-![Banco](screenshots/Captura de tela de 2026-04-02 21-44-39.png)
+![Banco](screenshots/image3.png)
