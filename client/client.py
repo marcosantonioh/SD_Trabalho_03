@@ -5,34 +5,34 @@ import random
 import uuid
 from datetime import datetime
 
-SERVER_URL = "http://127.0.0.1:5000/sensor"
+SERVIDOR_URL = "http://127.0.0.1:5000/sensor"
 
-history = []
+historico = []
 
 def enviar_temperatura():
 
     temperatura = round(random.uniform(-10, 40), 2)
 
-    data = {
+    dados = {
         "uuid": str(uuid.uuid4()),
         "sensor_id": "sensor_01",
         "temperatura": temperatura
     }
 
     try:
-        response = requests.post(SERVER_URL, json=data)
-        status = response.json().get("status")
+        resposta = requests.post(SERVIDOR_URL, json=dados)
+        status = resposta.json().get("status")
 
         atualizar_status(status)
         atualizar_temperatura(temperatura)
         adicionar_historico(temperatura, status)
 
     except:
-        status_label.config(text="ERRO DE CONEXÃO", fg="red")
+        rotulo_status.config(text="ERRO DE CONEXÃO", fg="red")
 
 
 def atualizar_temperatura(temp):
-    temp_label.config(text=f"{temp} °C")
+    rotulo_temp.config(text=f"{temp} °C")
 
 
 def atualizar_status(status):
@@ -45,7 +45,7 @@ def atualizar_status(status):
 
     cor = cores.get(status, "white")
 
-    status_label.config(
+    rotulo_status.config(
         text=status,
         fg=cor
     )
@@ -55,12 +55,12 @@ def adicionar_historico(temp, status):
 
     leitura = f"{datetime.now().strftime('%H:%M:%S')} | {temp}°C | {status}"
 
-    history.append(leitura)
+    historico.append(leitura)
 
-    history_list.delete(0, tk.END)
+    historico_list.delete(0, tk.END)
 
-    for item in history[-10:]:
-        history_list.insert(tk.END, item)
+    for item in historico[-10:]:
+        historico_list.insert(tk.END, item)
 
 
 # ==============================
@@ -99,7 +99,7 @@ tk.Label(
     fg="#bbbbbb"
 ).pack()
 
-temp_label = tk.Label(
+rotulo_temp = tk.Label(
     temp_frame,
     text="-- °C",
     font=("Segoe UI", 28, "bold"),
@@ -107,7 +107,7 @@ temp_label = tk.Label(
     fg="white"
 )
 
-temp_label.pack()
+rotulo_temp.pack()
 
 
 # ==============================
@@ -125,7 +125,7 @@ tk.Label(
     fg="#bbbbbb"
 ).pack()
 
-status_label = tk.Label(
+rotulo_status = tk.Label(
     status_frame,
     text="---",
     font=("Segoe UI", 18, "bold"),
@@ -133,7 +133,7 @@ status_label = tk.Label(
     fg="white"
 )
 
-status_label.pack()
+rotulo_status.pack()
 
 
 # ==============================
@@ -169,7 +169,7 @@ tk.Label(
 ).pack()
 
 
-history_list = tk.Listbox(
+historico_list = tk.Listbox(
     root,
     width=45,
     height=10,
@@ -179,6 +179,6 @@ history_list = tk.Listbox(
     borderwidth=0
 )
 
-history_list.pack(pady=10)
+historico_list.pack(pady=10)
 
 root.mainloop()
