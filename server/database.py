@@ -1,10 +1,10 @@
 import sqlite3
 
-DB_NAME = "readings.db"
+NOME_BD = "readings.db"
 
-def create_table():
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
+def criar_tabela():
+    conexao = sqlite3.connect(NOME_BD)
+    cursor = conexao.cursor()
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS leituras (
@@ -16,13 +16,13 @@ def create_table():
     )
     """)
 
-    conn.commit()
-    conn.close()
+    conexao.commit()
+    conexao.close()
 
 
-def insert_reading(id, sensor_id, temperatura, status, timestamp):
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
+def inserir_leitura(id, sensor_id, temperatura, status, timestamp):
+    conexao = sqlite3.connect(NOME_BD)
+    cursor = conexao.cursor()
 
     try:
         cursor.execute("""
@@ -30,21 +30,21 @@ def insert_reading(id, sensor_id, temperatura, status, timestamp):
         VALUES (?, ?, ?, ?, ?)
         """, (id, sensor_id, temperatura, status, timestamp))
 
-        conn.commit()
+        conexao.commit()
         return True
     except:
         return False
     finally:
-        conn.close()
+        conexao.close()
 
 
 def check_uuid(uuid):
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
+    conexao = sqlite3.connect(NOME_BD)
+    cursor = conexao.cursor()
 
     cursor.execute("SELECT id FROM leituras WHERE id=?", (uuid,))
     result = cursor.fetchone()
 
-    conn.close()
+    conexao.close()
 
     return result is not None

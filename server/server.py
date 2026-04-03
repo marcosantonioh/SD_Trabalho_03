@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 from datetime import datetime
-from database import create_table, insert_reading, check_uuid
+from database import criar_tabela, inserir_leitura, check_uuid
 
 app = Flask(__name__)
 
-create_table()
+criar_tabela()
 
 def process_temperature(temp):
 
@@ -17,13 +17,13 @@ def process_temperature(temp):
 
 
 @app.route('/sensor', methods=['POST'])
-def receive_data():
+def receber_dados():
 
-    data = request.json
+    dados = request.json
 
-    uuid = data.get("uuid")
-    sensor_id = data.get("sensor_id")
-    temperatura = data.get("temperatura")
+    uuid = dados.get("uuid")
+    sensor_id = dados.get("sensor_id")
+    temperatura = dados.get("temperatura")
 
     if check_uuid(uuid):
         return jsonify({
@@ -34,7 +34,7 @@ def receive_data():
 
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    insert_reading(uuid, sensor_id, temperatura, status_logico, timestamp)
+    inserir_leitura(uuid, sensor_id, temperatura, status_logico, timestamp)
 
     return jsonify({
         "status": status_logico
