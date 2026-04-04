@@ -1,6 +1,6 @@
 import sqlite3
 
-NOME_BD = "readings.db"
+NOME_BD = "leituras.db"
 
 def criar_tabela():
     conexao = sqlite3.connect(NOME_BD)

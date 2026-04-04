@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  servidor_api:
+    build: ./server
+    container_name: servidor_api
+    networks:
+      - rede_trabalho
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ./server/leituras.db:/app/leituras.db
+    restart: always
+
+  cliente_sensor:
+    build: ./client
+    container_name: cliente_sensor
+    networks:
+      - rede_trabalho
+    environment:
+      - DISPLAY=${DISPLAY}
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    stdin_open: true # Equivalente ao -i
+    tty: true        # Equivalente ao -t
+    depends_on:
+      - servidor_api
+
+networks:
+  rede_trabalho:
+    driver: bridge

@@ -5,7 +5,7 @@ import random
 import uuid
 from datetime import datetime
 
-SERVIDOR_URL = "http://127.0.0.1:5000/sensor"
+SERVIDOR_URL = "http://servidor_api:5000/sensor"
 
 historico = []
 
